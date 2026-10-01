@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Squad XI</title>
+<style>
+html,body{margin:0;height:100%;background:#0a0e0c;color:#e9eef0;font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
+.w{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 24px;box-sizing:border-box}
+h1{font-size:28px;letter-spacing:.04em;margin:0 0 6px}h1 b{color:#caff3a}
+p{font-size:15px;line-height:1.8;color:#b6c0c4;margin:14px 0 22px}
+button{appearance:none;border:0;border-radius:999px;background:#caff3a;color:#0a0e0c;font-weight:800;font-size:16px;padding:14px 30px}
+small{display:block;margin-top:26px;color:#7d8a90;font-size:12px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="w">
+  <h1>Squad <b>XI</b></h1>
+  <p id="msg">インターネットに接続できません。<br>接続を確認して、もう一度お試しください。</p>
+  <button onclick="location.href='https://squadxi.futbol/?src=ios'">再読み込み</button>
+  <small id="sub">No internet connection.<br>Check your connection and try again.</small>
+</div>
+<script>
+// この画面は「サーバーに到達できなかった時」だけ表示される予備ページ。通常は capacitor.config.json の server.url が直接読み込まれる。
+if(navigator.language&&/^en/i.test(navigator.language)){document.getElementById('msg').innerHTML='No internet connection.<br>Check your connection and try again.';document.querySelector('button').textContent='Reload';document.getElementById('sub').innerHTML='インターネットに接続できません。';}
+window.addEventListener('online',function(){location.href='https://squadxi.futbol/?src=ios'});
+</script>
+</body>
+</html>

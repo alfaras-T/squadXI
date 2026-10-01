@@ -1,0 +1,18 @@
+{
+  "appId": "futbol.squadxi.app",
+  "appName": "Squad XI",
+  "webDir": "www",
+  "server": {
+    "url": "https://squadxi.futbol/?src=ios",
+    "allowNavigation": ["squadxi.futbol"],
+    "cleartext": false
+  },
+  "ios": {
+    "contentInset": "automatic",
+    "backgroundColor": "#0a0e0c",
+    "preferredContentMode": "mobile",
+    "allowsLinkPreview": false,
+    "limitsNavigationsToAppBoundDomains": true,
+    "scrollEnabled": true
+  }
+}
