@@ -17,6 +17,18 @@ Google Drive「football lineup【2】/iOSアプリ化_引き渡し」の `squadx
 | §4-3 | アイコン（1024×1024）。ビルド時に CI が配置します（下記「アイコン」） | `.github/workflows/ios.yml` |
 | §4-4 | 起動画面の背景 `#0A0E0C`、ロゴなし | `ios/App/App/Base.lproj/LaunchScreen.storyboard` |
 
+## アプリ専用の動き（共有プレビュー）
+
+ウェブ版の iOS では「画像を保存」「Instagram」が共有シートを開きますが、アプリでは共有シートを使わず次のように動きます。
+
+| ボタン | アプリでの動き |
+|---|---|
+| 画像を保存 | 写真アプリに直接保存 |
+| Instagram | 写真に保存して、Instagram の新規投稿画面をその画像で開く |
+| X | 写真に保存してから、X の投稿画面（本文・リンク入り）を開く。画像は X 側で添付する（X は他アプリからの画像の受け渡しに対応していない） |
+
+仕組み: `ios/App/App/SquadXIPlugin.swift` のネイティブ処理と、ページに差し込むスクリプトで実現しています。スクリプトはウェブ側の共有プレビューのボタン ID（`#shDl` `#shIG` `#shX`）と、`navigator.share` / `a[download]` / `window.open` の呼び方に合わせてあります。**ウェブ側でこれらを変えた場合、アプリは自動的にウェブ版と同じ動き（共有シート）に戻ります**。合わせ直すには `SquadXIPlugin.swift` を更新して再ビルドします。
+
 ## リリースまでの流れ（Mac なし）
 
 アプリは**友人（ビルド担当）の Apple Developer アカウント名義**で公開します（手順書 §5 の合意どおり）。
@@ -65,7 +77,7 @@ CI が友人のアカウントで署名・アップロードするために使�
 
 ## アイコン
 
-`squadxi-ios/resources/icon-1024.png`（Drive の `squadxi-ios/resources/icon-1024.png`）を GitHub 上でこの場所にアップロードしておくと、CI はそれを使います。無い場合は https://squadxi.futbol/icon-1024.png を取得して使います。どちらの場合も CI が 1024×1024・透過なしであることを確認します。
+`squadxi-ios/resources/icon-1024.png`（サイトの `docs/icon-1024.png` と同じもの）を CI がアプリに組み込みます。無い場合は https://squadxi.futbol/icon-1024.png を取得して使います。どちらの場合も CI が 1024×1024・透過なしであることを確認します。
 
 ## 以後の更新（手順書 §9）
 
